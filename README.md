@@ -22,6 +22,8 @@ adder(x=1, y=2, z=3)
 
 I've tested it with Python 2.7 and 3.6.
 
+It's not meant to be a replacement for PEP 570 -- it was a fun project just to see if it would be possible to backport this, and possibly provide a deprecation path for pre-3.8 Pythons.
+
 
 
 ## Why?
