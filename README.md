@@ -88,6 +88,16 @@ A couple of reasons:
 
     I know, I'm a bit weird.
 
+What this is:
+
+*   Scratching an intellectual itch
+*   A possible deprecation path for positional-only arguments pre-3.8
+
+What this is not:
+
+*   Me trying to say "this is how PEP 570 should have been implemented".
+    There's a section in the PEP about why [they rejected decorators](https://www.python.org/dev/peps/pep-0570/#decorators).
+
 
 
 
