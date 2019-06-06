@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- encoding: utf-8
 
 import functools
@@ -23,10 +22,12 @@ def positional_only(*positional_only_args):
             bad_args = set(kwargs.keys()) & positional_only_args
 
             if bad_args:
-                raise TypeError(
-                    'You can only pass %s as a positional parameter' %
-                    ', '.join(bad_args)
-                )
+                if len(bad_args) == 1:
+                    message = "You can only pass %s as a positional parameter"
+                else:
+                    message = "You can only pass %s as positional parameters"
+
+                raise TypeError(message % ", ".join(bad_args))
 
             return f(*args, **kwargs)
 

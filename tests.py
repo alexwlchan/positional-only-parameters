@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- encoding: utf-8
 
 import pytest
@@ -44,7 +43,6 @@ def test_allows_calling_positional_args(function, args, kwargs):
 
     (doubler,       (1, ),          {"y": 2, "z": 3}),
     (doubler,       (1, ),          {"x": 2, "z": 3}),
-    (doubler,       (),             {"x": 1, "y": 2, "z": 3}),
 ])
 def test_blocks_calling_positional_only_arg_as_kwarg(function, args, kwargs):
     with pytest.raises(TypeError) as exc:
@@ -52,6 +50,17 @@ def test_blocks_calling_positional_only_arg_as_kwarg(function, args, kwargs):
 
     assert exc.value.args[0].startswith("You can only pass")
     assert exc.value.args[0].endswith("as a positional parameter")
+
+
+@pytest.mark.parametrize("function, args, kwargs", [
+    (doubler,       (),             {"x": 1, "y": 2, "z": 3}),
+])
+def test_blocks_calling_multiple_positional_only_arg_as_kwarg(function, args, kwargs):
+    with pytest.raises(TypeError) as exc:
+        function(*args, **kwargs)
+
+    assert exc.value.args[0].startswith("You can only pass")
+    assert exc.value.args[0].endswith("as positional parameters")
 
 
 def test_errors_if_try_to_define_non_existent_positional_only_arg():
