@@ -1,35 +1,35 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8
+
 import functools
 import inspect
 
-def positional_only_factory(*positional_only_args):
+
+try:
+    getfullargspec = inspect.getfullargspec
+except AttributeError:  # pragma: no cover
+    getfullargspec = inspect.getargspec
+
+
+def positional_only(*positional_only_args):
     positional_only_args = set(positional_only_args)
-    
-    def positional_only(f):
-        argspec = inspect.getargspec(f)
+
+    def inner(f):
+        argspec = getfullargspec(f)
         assert all(arg in argspec.args for arg in positional_only_args)
-        
+
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             bad_args = set(kwargs.keys()) & positional_only_args
 
             if bad_args:
                 raise TypeError(
-                    'You can only pass parameter %s as a positional argument' %
+                    'You can only pass %s as a positional parameter' %
                     ', '.join(bad_args)
                 )
 
             return f(*args, **kwargs)
-    
+
         return wrapper
-    
-    return positional_only
 
-@positional_only_factory('x')
-def adder(x, y, z):
-    return x + y + z
-
-print adder(1, y=2, z=3)
-
-@positional_only_factory('x', 'a')
-def what(x, y, z):
-    return x + y + z
+    return inner

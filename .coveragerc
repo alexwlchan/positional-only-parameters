@@ -1,0 +1,14 @@
+[run]
+branch = True
+include =
+    posonly_params.py
+    tests.py
+omit =
+    **/.virtualenvs/**/*.py
+    /usr/local/**/*.py
+    **/python3.6/**/*.py
+    /opt/python/**/*.py
+
+[report]
+show_missing = true
+fail_under = 100
