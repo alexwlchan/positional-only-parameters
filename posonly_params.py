@@ -1,5 +1,9 @@
 # -*- encoding: utf-8
 
+# This file is part of https://github.com/alexwlchan/positional-only-parameters
+#
+# This source code is released under the MIT licence.
+
 import functools
 import inspect
 
